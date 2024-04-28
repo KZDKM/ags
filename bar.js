@@ -290,14 +290,11 @@ function Audio() {
 function Battery() {
     return Widget.Button({
         visible: battery.bind('available'),
-        child: Widget.CircularProgress({
             child: Widget.Icon({
                 size: 12,
                 icon: battery.bind('icon_name')
             }),
-            value: battery.bind('percent').as(p => p > 0 ? p / 100 : 0),
             class_name: battery.bind('charging').as(ch => ch ? 'charging' : ''),
-        })
     })
 }
 
