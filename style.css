@@ -13,7 +13,8 @@ window.bar {
 
 window.bar button {
     background-color: transparent;
-    padding: 0 0.4em;
+    padding: 0 0.2em;
+    margin: 0;
     font-weight: normal;
 }
 
@@ -34,7 +35,7 @@ window.bar button:hover {
     background-color: lighter(lighter(@window_bg_color));
     /*box-shadow: 0 -0.2em 0.4em 0.1em darker(darker(@window_bg_color)) inset;*/
     border-radius: 999px;
-    margin: 0.4em 0;
+    margin: 0.4em 0.2em;
 }
 
 .preceedingws,
@@ -134,7 +135,8 @@ window.bar image {
     border-radius: 10px;
     border: 1px lighter(@popover_bg_color) solid;
     background-color: @popover_bg_color;
-    margin: 0.2em;
+    padding-left: 0.6em;
+    margin: 0.4em 0.2em;
 }
 
 .clock {

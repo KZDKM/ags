@@ -205,7 +205,7 @@ function Tray() {
         onSecondaryClick: (_, event) => item.openMenu(event),
     })
     return Widget.Box({
-        spacing: 0,
+        spacing: 4,
         class_name: "tray",
         children: systemtray.bind('items').as(i => i.map(trayItem))
     })
@@ -322,7 +322,7 @@ function MediaGroup() {
 function Settings() {
 
     return Widget.Box({
-        spacing: 2,
+        spacing: 0,
         class_name: "settings"
     },
         Bluetooth(),
@@ -371,7 +371,7 @@ export function Bar() {
         margins: [0, 0],
         anchor: ['top', 'left', 'right'],
         child: Widget.CenterBox({
-            css: "padding: 0 1em;",
+            css: "min-height: 38px; padding: 0 1em;",
             start_widget: LeftModules(),
             end_widget: RightModules()
         })
