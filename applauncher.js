@@ -3,23 +3,40 @@ const WINDOW_NAME = "applauncher"
 
 /** @param {import('resource:///com/github/Aylur/ags/service/applications.js').Application} app */
 const AppItem = app => Widget.Button({
+    class_name: "app",
     on_clicked: () => {
         App.closeWindow(WINDOW_NAME)
         app.launch()
     },
     attribute: { app },
     child: Widget.Box({
+        spacing: 8,
         children: [
             Widget.Icon({
                 icon: app.icon_name || "",
                 size: 42,
             }),
-            Widget.Label({
-                class_name: "title",
-                label: app.name,
-                xalign: 0,
-                vpack: "center",
-                truncate: "end",
+            Widget.CenterBox({
+                centerWidget: Widget.Box({
+                    spacing: 2,
+                    vertical: true,
+                    vpack: "center"
+                },
+                    Widget.Label({
+                        class_name: "title",
+                        label: app.name,
+                        xalign: 0,
+                        vpack: "center",
+                        truncate: "end",
+                    }),
+                    Widget.Label({
+                        class_name: "description",
+                        label: app.description,
+                        visible: (app.description ?? "") != "",
+                        xalign: 0,
+                        vpack: "center",
+                        truncate: "end",
+                    }),)
             }),
         ],
     }),
@@ -45,15 +62,17 @@ const Applauncher = ({ width = 500, height = 500, spacing = 12 }) => {
     // search entry
     const entry = Widget.Entry({
         hexpand: true,
-        css: `margin-bottom: ${spacing}px;`,
+        css: `min-width: ${width}px;`,
+
+        placeholder_text: "搜索",
 
         // to launch the first item on Enter
         on_accept: () => {
             // make sure we only consider visible (searched for) applications
-	    const results = applications.filter((item) => item.visible);
+            const results = applications.filter((item) => item.visible);
             if (results[0]) {
                 App.toggleWindow(WINDOW_NAME)
-                applications[0].attribute.app.launch()
+                results[0].attribute.app.launch()
             }
         },
 
@@ -67,15 +86,26 @@ const Applauncher = ({ width = 500, height = 500, spacing = 12 }) => {
         vertical: true,
         css: `margin: ${spacing * 2}px;`,
         children: [
-            entry,
+            Widget.Box(
+                {},
+                Widget.Icon({size: 16, icon: "system-search-symbolic"}),
+                entry,
+            ),
 
             // wrap the list in a scrollable
             Widget.Scrollable({
                 hscroll: "never",
                 css: `min-width: ${width}px;`
-                    + `min-height: ${height}px;`,
+                    + `min-height: ${height}px;`
+                    + `margin-top: ${spacing * 2}px;`,
                 child: list,
-            }),
+            }).hook(entry, self => {
+                if ((entry.text ?? "") == "") {
+                    self.visible = false
+                    return
+                }
+                self.visible = true
+            }, "changed"),
         ],
         setup: self => self.hook(App, (_, windowName, visible) => {
             if (windowName !== WINDOW_NAME)
@@ -87,21 +117,22 @@ const Applauncher = ({ width = 500, height = 500, spacing = 12 }) => {
                 entry.text = ""
                 entry.grab_focus()
             }
-        }),
+        })
     })
 }
 
 // there needs to be only one instance
 export const applauncher = Widget.Window({
     name: WINDOW_NAME,
+    class_name: WINDOW_NAME,
     setup: self => self.keybind("Escape", () => {
         App.closeWindow(WINDOW_NAME)
     }),
     visible: false,
     keymode: "exclusive",
     child: Applauncher({
-        width: 500,
-        height: 500,
-        spacing: 12,
+        width: 600,
+        height: 400,
+        spacing: 6,
     }),
 })
