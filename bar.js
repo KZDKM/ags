@@ -305,7 +305,7 @@ function Battery() {
                 }),
             ]
         }).hook(battery, self => {
-            self.class_name = (battery.percent <= 85 && battery.charging == false) ? "battery-low" : "battery"
+            self.class_name = (battery.percent <= 15 && battery.charging == false) ? "battery-low" : "battery"
         }, "changed"),
         class_name: "battery-container",
     })
