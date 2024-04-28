@@ -292,7 +292,7 @@ function Battery() {
     return Widget.Box({
         visible: battery.bind('available'),
         child: Widget.Box({
-            class_name: battery.bind('percent').as(percent => (percent <= 15) ? "battery-low" : "battery"),
+            class_name: "battery",
             spacing: 2,
             children: [
                 Widget.Label({
@@ -304,7 +304,9 @@ function Battery() {
                     icon: battery.bind('icon_name')
                 }),
             ]
-        }),
+        }).hook(battery, self => {
+            self.class_name = (battery.percent <= 85 && battery.charging == false) ? "battery-low" : "battery"
+        }, "changed"),
         class_name: "battery-container",
     })
 }
