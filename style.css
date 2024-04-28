@@ -125,7 +125,7 @@ window.bar image {
     margin-left: 0.4em;
     transition-duration: 200ms;
 }
-.battery, .battery-low {
+.battery, .battery-low, .media, .media-active {
     padding-right: 0.8em;
 }
 
@@ -154,6 +154,10 @@ window.bar image {
 
 .media-active ~ .battery-container {
     margin-left: 0.4em;
+}
+
+.media ~ .battery-container {
+    padding-right: 0.6em;
 }
 
 .settings {
