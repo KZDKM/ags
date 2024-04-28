@@ -127,6 +127,7 @@ window.bar image {
 .media-active {
     border-radius: 10px;
     padding: 0 0.6em;
+    margin-left: 0.4em;
     background-color: @accent_bg_color;
     transition-duration: 500ms;
 }
