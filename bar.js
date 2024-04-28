@@ -69,6 +69,7 @@ function AppBadge() {
 function WindowTitle() {
     return Widget.Label({
         class_name: "windowtitle",
+        truncate: "end",
         label: hyprland.active.client.bind('title'),
         visible: hyprland.active.client.bind('class').as(c => c !== "")
     })
@@ -373,7 +374,8 @@ export function Bar() {
         child: Widget.CenterBox({
             css: "min-height: 38px; padding: 0 1em;",
             start_widget: LeftModules(),
-            end_widget: RightModules()
+            end_widget: RightModules(),
+            center_widget: Widget.Box({css:"min-width: 250px;"})
         })
     })
 }
