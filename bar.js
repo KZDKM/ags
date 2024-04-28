@@ -371,7 +371,7 @@ export function Bar() {
         margins: [0, 0],
         anchor: ['top', 'left', 'right'],
         child: Widget.CenterBox({
-            css: "min-width: 1600px; padding: 0 1em;",
+            css: "padding: 0 1em;",
             start_widget: LeftModules(),
             end_widget: RightModules()
         })
