@@ -117,6 +117,7 @@ function WorkspaceIndicator() {
                 children: [
                     Widget.Label({
                         class_name: "windowindicator",
+                        css: "min-width: 1.2em",
                         label: "",
                         visible: false
                     }).hook(hyprland, self => {
@@ -253,7 +254,6 @@ function Network() {
     })
 }
 
-// TODO: add scroll and change icon size
 function Audio() {
     return Widget.Button({
         on_primary_click: () => {
@@ -265,7 +265,7 @@ function Audio() {
         on_scroll_down: () => audio.speaker.volume -= 0.01,
         on_scroll_up: () => audio.speaker.volume += 0.01,
         child: Widget.Box({
-            spacing: 4,
+            spacing: 2,
             children: [
                 Widget.Label({ css: "font-size:10px;" }).hook(audio.speaker, self => {
                     const vol = audio.speaker.volume * 100;
@@ -289,13 +289,23 @@ function Audio() {
 }
 
 function Battery() {
-    return Widget.Button({
+    return Widget.Box({
         visible: battery.bind('available'),
-            child: Widget.Icon({
-                size: 12,
-                icon: battery.bind('icon_name')
-            }),
-            class_name: battery.bind('charging').as(ch => ch ? 'charging' : ''),
+        child: Widget.Box({
+            class_name: battery.bind('percent').as(percent => (percent <= 15) ? "battery-low" : "battery"),
+            spacing: 2,
+            children: [
+                Widget.Label({
+                    css: 'font-size: 10px;',
+                    label: battery.bind('percent').as(percent => percent + "%")
+                }),
+                Widget.Icon({
+                    size: 12,
+                    icon: battery.bind('icon_name')
+                }),
+            ]
+        }),
+        class_name: "battery-container",
     })
 }
 
@@ -328,8 +338,8 @@ function Settings() {
     },
         Bluetooth(),
         Network(),
-        Battery(),
         MediaGroup(),
+        Battery(),
     )
 
 }

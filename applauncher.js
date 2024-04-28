@@ -97,7 +97,7 @@ export const applauncher = Widget.Window({
     setup: self => self.keybind("Escape", () => {
         App.closeWindow(WINDOW_NAME)
     }),
-    visible: true,
+    visible: false,
     keymode: "exclusive",
     child: Applauncher({
         width: 500,
