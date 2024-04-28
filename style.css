@@ -153,7 +153,8 @@ window.bar image {
     border-radius: 10px;
     border: 1px lighter(@popover_bg_color) solid;
     background-color: @popover_bg_color;
-    padding: 0 0.6em;
+    padding-left: 0.6em;
+    padding-right: 0.8em;
     margin: 0.6em 0.2em;
 }
 

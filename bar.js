@@ -50,14 +50,14 @@ function AppBadge() {
         class_name: "appbadge",
         children: [
             Widget.Icon().hook(hyprland.active.client, self => {
-                const curAppInfo = appList.find(info => { return info.get_id()?.replace('.desktop', '') === hyprland.active.client.class })
+                const curAppInfo = appList.find(info => { return info.get_id()?.replace('.desktop', '') == hyprland.active.client.class || info.get_startup_wm_class() == hyprland.active.client.class })
                 self.icon = (hyprland.active.client.class === "") ?
                     "" :
                     curAppInfo?.get_string('Icon') ?? ""
                 self.visible = curAppInfo != undefined
             }),
             Widget.Label().hook(hyprland.active.client, self => {
-                const curAppInfo = appList.find(info => { return info.get_id()?.replace('.desktop', '') === hyprland.active.client.class })
+                const curAppInfo = appList.find(info => { return info.get_id()?.replace('.desktop', '') == hyprland.active.client.class || info.get_startup_wm_class() == hyprland.active.client.class })
                 self.label = (hyprland.active.client.class === "") ?
                     "Desktop" :
                     curAppInfo?.get_name() ?? hyprland.active.client.class
