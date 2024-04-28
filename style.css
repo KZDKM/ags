@@ -1,0 +1,217 @@
+* {
+    font-family: "Inter Regular";
+}
+
+/* BAR */
+
+window.bar {
+    background-color: alpha(@window_bg_color, 0.1);
+    /*border-radius: 0 0 8px 8px;*/
+    font-size: 12px;
+    /*border-bottom: 1px alpha(@popover_bg_color, 0.5) solid;*/
+}
+
+window.bar button {
+    background-color: transparent;
+    padding: 0 0.4em;
+    font-weight: normal;
+}
+
+window.bar button:hover {
+    background-color: alpha(lighter(@popover_bg_color), 0.5);
+}
+
+.sysicon {
+    font-family: "Font Awesome 6";
+    font-size: 12px;
+}
+
+.texticon {
+    font-family: "Font Awesome 6";
+}
+
+.workspaceindicator {
+    background-color: lighter(lighter(@window_bg_color));
+    /*box-shadow: 0 -0.2em 0.4em 0.1em darker(darker(@window_bg_color)) inset;*/
+    border-radius: 999px;
+    margin: 0.4em 0;
+}
+
+.preceedingws,
+.succeedingws,
+.wsarrows {
+    font-size: 10px;
+    color: @theme_fg_color;
+}
+
+.windowindicator {
+    border-right: 1px @popover_bg_color solid;
+    padding: 0 0.6em;
+}
+
+.workspacecenter-active .windowindicator {
+    border-right: 1px @accent_bg_color solid;
+    padding: 0 0.6em;
+}
+
+.workspacepointer {
+    margin: 0 0.8em;
+}
+
+.workspacecenter {
+    border-radius: 999px;
+    border: 1px @popover_bg_color solid;
+    background-color: @window_bg_color;
+    /*box-shadow: 0 -0.2em 0.4em 0.1em lighter(@window_bg_color) inset;*/
+    padding: 0 0.6em;
+}
+
+.workspacecenter-active {
+    border-radius: 999px;
+    border: 1px @accent_bg_color solid;
+    background-color: @accent_bg_color;
+    /*box-shadow: 0 -0.2em 0.4em 0.1em lighter(@window_bg_color) inset;*/
+    padding: 0 0.6em;
+}
+
+.appbadge {
+    /*border-right: 1px @popover_bg_color solid;
+    border-radius: 10px;*/
+    margin: 0 0.6em;
+}
+
+window.bar image {
+    font-size: 14px;
+    margin: 0 0.2em;
+}
+
+.appbadge label {
+    font-weight: bold;
+    margin: 0 0.4em;
+}
+
+.windowtitle {
+    font-size: 10px;
+    margin: 0 0.6em;
+}
+
+.windowgroup {
+    /*background-color: darker(@window_bg_color);
+    border: 1px @popover_bg_color solid;
+    border-radius: 10px;*/
+    margin: 0.3em;
+    padding: 0;
+}
+
+.mpris:first-child, .mpris-active:first-child {
+    font-size: 10px;
+}
+
+.mpris {
+    transition-duration: 200ms;
+    opacity: 0;
+}
+
+.mpris-active {
+    transition-duration: 500ms;
+    opacity: 1;
+}
+
+.media {
+    border-radius: 10px;
+    padding: 0 0.6em;
+    transition-duration: 200ms;
+}
+
+.media-active {
+    border-radius: 10px;
+    padding: 0 0.6em;
+    background-color: @accent_bg_color;
+    transition-duration: 500ms;
+}
+
+.settings {
+    border-radius: 10px;
+    border: 1px lighter(@popover_bg_color) solid;
+    background-color: @popover_bg_color;
+    margin: 0.2em;
+}
+
+.clock {
+    font-weight: bold;
+    font-size: 12px;
+    margin: 0 0.6em;
+}
+
+
+/* NOTIFICATIONS */
+
+window.notification-popups {
+    background-color: transparent;
+}
+
+
+
+
+/* PLAYERS */
+
+window.players {
+    background-color: transparent;
+}
+
+.player {
+    padding: 10px;
+    min-width: 350px;
+    background-color: alpha(@window_bg_color, 0.8);
+    margin: 1em;
+    border-radius: 10px;
+}
+
+.player .img {
+    min-width: 100px;
+    min-height: 100px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 13px;
+    margin-right: 1em;
+}
+
+.player .title {
+    font-size: 1em;
+}
+
+.player .artist {
+    font-size: 0.8em;
+    color: @insensitive_fg_color;
+}
+
+.player scale.position {
+    padding: 0;
+    margin-bottom: .3em;
+}
+
+.player scale.position trough {
+    min-height: 8px;
+}
+
+.player scale.position highlight {
+    background-color: @theme_fg_color;
+}
+
+.player scale.position slider {
+    all: unset;
+}
+
+.player .position, .player .length {
+    font-size: 10px;
+}
+
+.player button {
+    min-height: 1em;
+    min-width: 1em;
+    padding: .3em;
+}
+
+.player button.play-pause {
+    margin: 0 .3em;
+}
