@@ -34,7 +34,7 @@ window.bar button:hover {
 .workspaceindicator {
     background-color: lighter(lighter(@window_bg_color));
     /*box-shadow: 0 -0.2em 0.4em 0.1em darker(darker(@window_bg_color)) inset;*/
-    border-radius: 999px;
+    border-radius: 10px;
     margin: 0.4em 0.2em;
 }
 
@@ -60,7 +60,7 @@ window.bar button:hover {
 }
 
 .workspacecenter {
-    border-radius: 999px;
+    border-radius: 10px;
     border: 1px @popover_bg_color solid;
     background-color: @window_bg_color;
     /*box-shadow: 0 -0.2em 0.4em 0.1em lighter(@window_bg_color) inset;*/
@@ -68,7 +68,7 @@ window.bar button:hover {
 }
 
 .workspacecenter-active {
-    border-radius: 999px;
+    border-radius: 10px;
     border: 1px @accent_bg_color solid;
     background-color: @accent_bg_color;
     /*box-shadow: 0 -0.2em 0.4em 0.1em lighter(@window_bg_color) inset;*/
