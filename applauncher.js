@@ -13,8 +13,8 @@ const AppItem = app => Widget.Button({
         spacing: 8,
         children: [
             Widget.Icon({
+                css: "font-size: 42px",
                 icon: app.icon_name || "",
-                size: 42,
             }),
             Widget.CenterBox({
                 centerWidget: Widget.Box({
