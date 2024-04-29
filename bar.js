@@ -49,7 +49,7 @@ function AppBadge() {
     return Widget.Box({
         class_name: "appbadge",
         children: [
-            Widget.Icon().hook(hyprland.active.client, self => {
+            Widget.Icon({css:"font-size:12px"}).hook(hyprland.active.client, self => {
                 const curAppInfo = appList.find(info => { return info.get_id()?.replace('.desktop', '') == hyprland.active.client.class || info.get_startup_wm_class() == hyprland.active.client.class })
                 self.icon = (hyprland.active.client.class === "") ?
                     "" :
@@ -384,10 +384,20 @@ export function Bar() {
         margins: [0, 0],
         anchor: ['top', 'left', 'right'],
         child: Widget.CenterBox({
-            css: "min-height: 38px; padding: 0 1em;",
-            start_widget: LeftModules(),
-            end_widget: RightModules(),
-            center_widget: Widget.Box({css:"min-width: 250px;"})
-        })
+            css: "min-height: 28px;",
+            vertical: true,
+            vpack: "center",
+            center_widget: Widget.CenterBox({
+                css: "min-height: 28px; padding: 0 1em;",
+                vexpand: false,
+                start_widget: LeftModules(),
+                end_widget: RightModules(),
+                center_widget: Widget.Box({ css: "min-width: 250px;" })
+            }),
+        }),
+        setup: self => {
+            const topReserved = hyprland.monitors[self.monitor ?? hyprland.active.monitor.id]?.reserved[0]
+            if (topReserved > 28) self.child.css = "min-height: '${topReserved}'px;"
+        }
     })
 }

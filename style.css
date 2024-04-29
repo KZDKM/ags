@@ -36,7 +36,7 @@ window.bar button:hover {
     background-color: lighter(lighter(@window_bg_color));
     /*box-shadow: 0 -0.2em 0.4em 0.1em darker(darker(@window_bg_color)) inset;*/
     border-radius: 10px;
-    margin: 0.6em 0.2em;
+    margin: 0.2em 0.2em;
 }
 
 .preceedingws,
@@ -155,7 +155,7 @@ window.bar image {
     background-color: @popover_bg_color;
     padding-left: 0.6em;
     padding-right: 0.8em;
-    margin: 0.6em 0.2em;
+    margin: 0.2em 0.2em;
 }
 
 .clock {
