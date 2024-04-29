@@ -380,6 +380,8 @@ export function Bar() {
     return Widget.Window({
         name: 'bar',
         class_name: 'bar',
+        layer: 'top',
+        exclusivity: 'exclusive',
         margins: [0, 0],
         anchor: ['top', 'left', 'right'],
         child: Widget.CenterBox({
@@ -396,12 +398,10 @@ export function Bar() {
         }),
         setup: self => {
             const curMonitor = (self.monitor != undefined) ? hyprland.monitors[self.monitor] : hyprland.monitors.find(monitor => { return monitor.id == hyprland.active.monitor.id })
-            console.log(curMonitor)
             const topReserved = curMonitor?.reserved[1]
             if (topReserved ?? 0 > 28) {
                 self.child.css = "min-height: " + topReserved + "px;"
-            } else {
-                self.exclusivity = "exclusive"
+                self.exclusivity = 'normal'
             }
         }
     })
