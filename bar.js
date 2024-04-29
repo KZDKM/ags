@@ -209,18 +209,23 @@ function Tray() {
     return Widget.Box({
         spacing: 4,
         class_name: "tray",
-        children: systemtray.bind('items').as(i => i.map(trayItem))
+        // hide nm-applet and blueman, these menus should be activated by the settings icons
+        children: systemtray.bind('items').as(i => i.filter(i => i.id != "nm-applet" && i.id != "blueman").map(trayItem))
     })
 }
 
 function Bluetooth() {
 
     return Widget.Button({
+        onPrimaryClick : (_, event) => {
+            systemtray.items.find(i => { return i.id == "blueman" })?.openMenu(event)
+        },
         child: Widget.Icon({
             size: 12,
             icon: bluetooth.bind('enabled').as(on =>
                 `bluetooth-${on ? 'active' : 'disabled'}-symbolic`),
-        })
+        }),
+        setup: () => {Utils.execAsync("blueman-applet")}
     })
 }
 
@@ -244,13 +249,17 @@ function Network() {
     })
 
     return Widget.Button({
+        onPrimaryClick : (_, event) => {
+            systemtray.items.find(i => { return i.id == "nm-applet" })?.openMenu(event)
+        },
         child: Widget.Stack({
             children: {
                 wifi: WifiIndicator(),
                 wired: WiredIndicator(),
             },
             shown: network.bind('primary').as(p => p || 'wifi'),
-        })
+        }),
+        setup: () => {Utils.execAsync("nm-applet")}
     })
 }
 
