@@ -296,7 +296,7 @@ window.players {
 /* APP LAUCHER */
 
 window.applauncher {
-    background-color: alpha(@window_bg_color, 0.4);
+    background-color: alpha(@window_bg_color, 0.8);
     border: 1px @popover_bg_color solid;
     border-radius: 16px;
 }
@@ -323,4 +323,18 @@ window.applauncher .app {
 window.applauncher .description {
     font-size: 0.8em;
     color: @insensitive_fg_color;
+}
+
+/* DOCK */
+window.dock {
+    background-color: alpha(@window_bg_color, 0.8);
+    border-radius: 24px;
+}
+
+.dockcontainer {
+    padding: 0.6em;
+}
+
+window.dock button {
+    background-color: transparent;
 }
