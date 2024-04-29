@@ -377,15 +377,20 @@ function RightModules() {
 }
 
 export function Bar() {
+    const curMonitor = hyprland.monitors.find(monitor => { return monitor.id == hyprland.active.monitor.id })
+    const topReserved = curMonitor?.reserved[1]
+    const sizeCss = (topReserved ?? 0 > 28) ? 'min-height: ' + topReserved + 'px;' : 'min-height: 28px;'
+    const exclusivity = (topReserved ?? 0 > 28) ? 'normal' : 'exclusive'
+
     return Widget.Window({
         name: 'bar',
         class_name: 'bar',
         layer: 'top',
-        exclusivity: 'exclusive',
+        exclusivity: exclusivity,
         margins: [0, 0],
         anchor: ['top', 'left', 'right'],
         child: Widget.CenterBox({
-            css: "min-height: 28px;",
+            css: sizeCss,
             vertical: true,
             vpack: "center",
             center_widget: Widget.CenterBox({
@@ -396,13 +401,5 @@ export function Bar() {
                 center_widget: Widget.Box({ css: "min-width: 250px;" })
             }),
         }),
-        setup: self => {
-            const curMonitor = (self.monitor != undefined) ? hyprland.monitors[self.monitor] : hyprland.monitors.find(monitor => { return monitor.id == hyprland.active.monitor.id })
-            const topReserved = curMonitor?.reserved[1]
-            if (topReserved ?? 0 > 28) {
-                self.child.css = "min-height: " + topReserved + "px;"
-                self.exclusivity = 'normal'
-            }
-        }
     })
 }
