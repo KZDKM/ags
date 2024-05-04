@@ -3,16 +3,16 @@ import { NotificationPopups } from "./notifications.js"
 import { applauncher } from "./applauncher.js"
 import { Media } from "./player.js"
 import { Wallpaper } from "./wallpaper.js"
-import { Dock } from "./dock.js"
+import { Dock, dockActivator } from "./dock.js"
 
 App.config({
     style: './style.css',
     windows: [
-        //Wallpaper(),
+        Wallpaper(),
         Bar(),
         NotificationPopups(),
         applauncher,
-        //Dock(),
-        Media()
+        Dock({ vertical: false }),
+        Media(),
     ]
 })

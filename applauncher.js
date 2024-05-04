@@ -1,4 +1,4 @@
-const { query } = await Service.import("applications")
+const { query, reload } = await Service.import("applications")
 const WINDOW_NAME = "applauncher"
 
 /** @param {import('resource:///com/github/Aylur/ags/service/applications.js').Application} app */
@@ -14,7 +14,7 @@ const AppItem = app => Widget.Button({
         children: [
             Widget.Icon({
                 css: "font-size: 42px",
-                icon: app.icon_name || "",
+                icon: app.icon_name || "application-x-executable",
             }),
             Widget.CenterBox({
                 centerWidget: Widget.Box({
@@ -113,6 +113,7 @@ const Applauncher = ({ width = 500, height = 500, spacing = 12 }) => {
 
             // when the applauncher shows up
             if (visible) {
+                reload()
                 repopulate()
                 entry.text = ""
                 entry.grab_focus()

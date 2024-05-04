@@ -200,7 +200,7 @@ window.notification-popups .notification {
     padding: 1em;
     margin: .5em;
     border: 1px solid @wm_borders_edge;
-    background-color: alpha(@window_bg_color, 0.8);
+    background-color: alpha(@window_bg_color, 0.5);
 }
 
 window.notification-popups .notification.critical {
@@ -239,7 +239,7 @@ window.players {
 .player {
     padding: 10px;
     min-width: 350px;
-    background-color: alpha(@window_bg_color, 0.8);
+    background-color: alpha(@window_bg_color, 0.5);
     margin: 1em;
     border-radius: 10px;
 }
@@ -296,7 +296,7 @@ window.players {
 /* APP LAUCHER */
 
 window.applauncher {
-    background-color: alpha(@window_bg_color, 0.8);
+    background-color: alpha(@window_bg_color, 0.5);
     border: 1px @popover_bg_color solid;
     border-radius: 16px;
 }
@@ -327,8 +327,9 @@ window.applauncher .description {
 
 /* DOCK */
 window.dock {
-    background-color: alpha(@window_bg_color, 0.8);
-    border-radius: 24px;
+    background-color: alpha(@window_bg_color, 0.5);
+    border-radius: 28px;
+    border: 1px @popover_bg_color solid;
 }
 
 .dockcontainer {
@@ -337,4 +338,23 @@ window.dock {
 
 window.dock button {
     background-color: transparent;
+    border-radius: 28px;
+    margin: 0.25em;
+    padding: 0.25em;
+}
+
+window.dock .workspacecontainer {
+    border: 1px @popover_bg_color solid;
+    background-color: @window_bg_color;
+    border-radius: 28px;
+    padding: 0 0.4em;
+    margin: 0 0.4em;
+}
+
+window.dock .workspacecontainer-active {
+    border: 1px @accent_bg_color solid;
+    background-color: @window_bg_color;
+    border-radius: 28px;
+    padding: 0 0.4em;
+    margin: 0 0.4em;
 }

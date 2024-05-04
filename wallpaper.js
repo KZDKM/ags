@@ -5,8 +5,11 @@ export function Wallpaper() {
         anchor: ["top", "bottom", "left", "right"],
         keymode: "none",
         layer: "background",
+        exclusivity: "ignore",
         child: Widget.Box({
-            css: "background-image: url('.config/ags/bg/abstract8.jpg'); background-size:cover;"
+            vexpand: true,
+            hexpand: true,
+            css: "background-image: url('" + App.configDir + "/../../图片/abstract-bg/abstract8.jpg'); background-size:cover;"
         })
     })
 }
