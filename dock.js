@@ -44,8 +44,8 @@ function PinnedApps({ vertical = false }) {
         pinnedBox.visible = apps.length > 0
     }
 
-    Utils.monitorFile("../ags-config/pinned-apps", updatePinned)
-    updatePinned("../ags-config/pinned-apps")
+    Utils.monitorFile(App.configDir + "/../ags-config/pinned-apps", updatePinned)
+    updatePinned(App.configDir + "/../ags-config/pinned-apps")
 
     return pinnedBox
 }
@@ -59,13 +59,13 @@ function dockIcon(client) {
             Widget.MenuItem({
                 child: Widget.Label("Pin"),
                 onActivate: () => {
-                    const pinned = Utils.readFile("../ags-config/pinned-apps")
+                    const pinned = Utils.readFile(App.configDir + "/../ags-config/pinned-apps")
                     for (const entry of pinned.split("\n")) {
                         console.log(entry)
                         if (entry == client.class) // dont pin if exists
                             return
                     }
-                    Utils.writeFile(pinned + "\n" + client.class, "../ags-config/pinned-apps")
+                    Utils.writeFile(pinned + "\n" + client.class, App.configDir + "/../ags-config/pinned-apps")
                 }
             })
         ]
@@ -107,7 +107,6 @@ function UpdateDock(box) {
         dockWidgets[workspaceCount - 1].add(dockIcon(client))
     }
     box.children = dockWidgets
-    box.parent.visible = dockWidgets.length > 0
 }
 
 function DockApps({ vertical = false }) {
