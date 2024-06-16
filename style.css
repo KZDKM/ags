@@ -29,7 +29,12 @@ window.bar button:hover {
 }
 
 .texticon {
-    font-family: "Font Awesome 6";
+    font-family: "Font Awesome 6 Free";
+}
+
+.keyhint {
+    font-size: 0.8em;
+    color: alpha(@window_fg_color, 0.8);
 }
 
 .workspaceindicator {
@@ -106,7 +111,8 @@ window.bar image {
     padding: 0;
 }
 
-.mpris:first-child, .mpris-active:first-child {
+.mpris:first-child,
+.mpris-active:first-child {
     font-size: 10px;
 }
 
@@ -120,7 +126,8 @@ window.bar image {
     opacity: 1;
 }
 
-.media, .battery {
+.media,
+.battery {
     border-radius: 10px;
     margin-left: 0.4em;
     transition-duration: 200ms;
@@ -164,7 +171,6 @@ window.bar image {
     margin: 0 0.6em;
 }
 
-
 /* NOTIFICATIONS */
 
 window.notification-popups {
@@ -172,7 +178,7 @@ window.notification-popups {
 }
 
 window.notification-popups box.notifications {
-    padding: .5em;
+    padding: 0.5em;
 }
 
 window.notification-popups .icon {
@@ -198,7 +204,7 @@ window.notification-popups .notification {
     min-width: 350px;
     border-radius: 11px;
     padding: 1em;
-    margin: .5em;
+    margin: 0.5em;
     border: 1px solid @wm_borders_edge;
     background-color: alpha(@window_bg_color, 0.5);
 }
@@ -217,8 +223,8 @@ window.notification-popups .body {
 }
 
 .actions .action-button {
-    margin: 0 .4em;
-    margin-top: .8em;
+    margin: 0 0.4em;
+    margin-top: 0.8em;
 }
 
 .actions .action-button:first-child {
@@ -228,7 +234,6 @@ window.notification-popups .body {
 .actions .action-button:last-child {
     margin-right: 0;
 }
-
 
 /* PLAYERS */
 
@@ -264,7 +269,7 @@ window.players {
 
 .player scale.position {
     padding: 0;
-    margin-bottom: .3em;
+    margin-bottom: 0.3em;
 }
 
 .player scale.position trough {
@@ -279,18 +284,19 @@ window.players {
     all: unset;
 }
 
-.player .position, .player .length {
+.player .position,
+.player .length {
     font-size: 10px;
 }
 
 .player button {
     min-height: 1em;
     min-width: 1em;
-    padding: .3em;
+    padding: 0.3em;
 }
 
 .player button.play-pause {
-    margin: 0 .3em;
+    margin: 0 0.3em;
 }
 
 /* APP LAUCHER */
