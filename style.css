@@ -1,0 +1,371 @@
+* {
+    font-family: "Inter Regular";
+}
+
+/* BAR */
+
+window.bar {
+    background-color: alpha(@window_bg_color, 0.1);
+    /*border-radius: 0 0 8px 8px;*/
+    font-size: 12px;
+    /*border-bottom: 1px alpha(@popover_bg_color, 0.5) solid;*/
+}
+
+window.bar button {
+    background-color: transparent;
+    min-height: 0;
+    padding: 0 0.2em;
+    margin: 0;
+    font-weight: normal;
+}
+
+window.bar button:hover {
+    background-color: alpha(lighter(@popover_bg_color), 0.5);
+}
+
+.sysicon {
+    font-family: "Font Awesome 6 Free";
+    font-size: 12px;
+    margin: 0;
+}
+
+.texticon {
+    font-family: "Font Awesome 6 Free";
+}
+
+.keyhint {
+    font-size: 0.8em;
+    color: alpha(@window_fg_color, 0.8);
+}
+
+.workspaceindicator {
+    background-color: lighter(lighter(@window_bg_color));
+    /*box-shadow: 0 -0.2em 0.4em 0.1em darker(darker(@window_bg_color)) inset;*/
+    border-radius: 10px;
+    margin: 0.2em 0.2em;
+}
+
+.preceedingws,
+.succeedingws,
+.wsarrows {
+    font-size: 10px;
+    color: @theme_fg_color;
+}
+
+.windowindicator {
+    border-right: 1px @popover_bg_color solid;
+    padding: 0 0.6em;
+}
+
+.workspacecenter-active .windowindicator {
+    border-right: 1px @accent_bg_color solid;
+    padding: 0 0.6em;
+}
+
+.workspacepointer {
+    margin: 0 0.8em;
+}
+
+.workspacecenter {
+    border-radius: 10px;
+    border: 1px @popover_bg_color solid;
+    background-color: @window_bg_color;
+    /*box-shadow: 0 -0.2em 0.4em 0.1em lighter(@window_bg_color) inset;*/
+    padding: 0 0.6em;
+}
+
+.workspacecenter-active {
+    border-radius: 10px;
+    border: 1px @accent_bg_color solid;
+    background-color: @accent_bg_color;
+    /*box-shadow: 0 -0.2em 0.4em 0.1em lighter(@window_bg_color) inset;*/
+    padding: 0 0.6em;
+}
+
+.appbadge {
+    /*border-right: 1px @popover_bg_color solid;
+    border-radius: 10px;*/
+    margin: 0 0.6em;
+}
+
+window.bar image {
+    font-size: 14px;
+    margin: 0 0.2em;
+    padding: 0;
+}
+
+.appbadge label {
+    font-weight: bold;
+    margin: 0 0.4em;
+}
+
+.windowtitle {
+    font-size: 10px;
+    margin: 0 0.6em;
+}
+
+.windowgroup {
+    /*background-color: darker(@window_bg_color);
+    border: 1px @popover_bg_color solid;
+    border-radius: 10px;*/
+    margin: 0.4em;
+    padding: 0;
+}
+
+.mpris:first-child,
+.mpris-active:first-child {
+    font-size: 10px;
+}
+
+.mpris {
+    transition-duration: 200ms;
+    opacity: 0;
+}
+
+.mpris-active {
+    transition-duration: 500ms;
+    opacity: 1;
+}
+
+.media,
+.battery {
+    border-radius: 10px;
+    /*margin-left: 0.4em;*/
+    transition-duration: 200ms;
+}
+
+.battery-container {
+    margin: 0;
+    padding: 0;
+}
+
+.battery-low {
+    border-radius: 10px;
+    /*margin-left: 0.2em;*/
+    padding: 0 0.8em;
+    transition-duration: 200ms;
+    background-color: @warning_bg_color;
+    color: @warning_fg_color;
+    transition-duration: 200ms;
+}
+
+.media-active {
+    border-radius: 10px;
+    padding: 0 0.4em;
+    margin-left: 0.4em;
+    background-color: @accent_bg_color;
+    transition-duration: 500ms;
+}
+
+.settings {
+    border-radius: 10px;
+    border: 1px lighter(@popover_bg_color) solid;
+    background-color: @popover_bg_color;
+    padding-left: 0.6em;
+    padding-right: 0.8em;
+    margin: 0.2em 0.2em;
+}
+
+.clock {
+    font-weight: bold;
+    font-size: 12px;
+    margin: 0 0.6em;
+}
+
+/* NOTIFICATIONS */
+
+window.notification-popups {
+    background-color: transparent;
+}
+
+window.notification-popups box.notifications {
+    padding: 0.5em;
+}
+
+window.notification-popups .icon {
+    min-width: 68px;
+    min-height: 68px;
+    margin-right: 1em;
+}
+
+window.notification-popups .icon image {
+    font-size: 58px;
+    /* to center the icon */
+    margin: 5px;
+    color: @theme_fg_color;
+}
+
+window.notification-popups .icon box {
+    min-width: 68px;
+    min-height: 68px;
+    border-radius: 7px;
+}
+
+window.notification-popups .notification {
+    min-width: 350px;
+    border-radius: 11px;
+    padding: 1em;
+    margin: 0.5em;
+    border: 1px solid @wm_borders_edge;
+    background-color: alpha(@window_bg_color, 0.5);
+}
+
+window.notification-popups .notification.critical {
+    border: 1px solid lightcoral;
+}
+
+window.notification-popups .title {
+    color: @theme_fg_color;
+    font-size: 1.4em;
+}
+
+window.notification-popups .body {
+    color: @theme_unfocused_fg_color;
+}
+
+.actions .action-button {
+    margin: 0 0.4em;
+    margin-top: 0.8em;
+}
+
+.actions .action-button:first-child {
+    margin-left: 0;
+}
+
+.actions .action-button:last-child {
+    margin-right: 0;
+}
+
+/* PLAYERS */
+
+window.players {
+    background-color: transparent;
+}
+
+.player {
+    padding: 10px;
+    min-width: 350px;
+    background-color: alpha(@window_bg_color, 0.5);
+    margin: 1em;
+    border-radius: 10px;
+}
+
+.player .img {
+    min-width: 100px;
+    min-height: 100px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 13px;
+    margin-right: 1em;
+}
+
+.player .title {
+    font-size: 1em;
+}
+
+.player .artist {
+    font-size: 0.8em;
+    color: @insensitive_fg_color;
+}
+
+.player scale.position {
+    padding: 0;
+    margin-bottom: 0.3em;
+}
+
+.player scale.position trough {
+    min-height: 8px;
+}
+
+.player scale.position highlight {
+    background-color: @theme_fg_color;
+}
+
+.player scale.position slider {
+    all: unset;
+}
+
+.player .position,
+.player .length {
+    font-size: 10px;
+}
+
+.player button {
+    min-height: 1em;
+    min-width: 1em;
+    padding: 0.3em;
+}
+
+.player button.play-pause {
+    margin: 0 0.3em;
+}
+
+/* APP LAUCHER */
+
+.frame {
+    border:none;
+}
+
+window.applauncher {
+    background-color: alpha(@window_bg_color, 0.5);
+    border: 1px @popover_bg_color solid;
+    border-radius: 16px;
+}
+
+window.applauncher entry {
+    font-size: 16px;
+    border-radius: 16px;
+    outline-width: 0;
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+}
+
+window.applauncher entry:active {
+    outline-width: 0;
+    box-shadow: none;
+    border: none;
+}
+
+window.applauncher .app {
+    background-color: transparent;
+}
+
+window.applauncher .description {
+    font-size: 0.8em;
+    color: @insensitive_fg_color;
+}
+
+/* DOCK */
+window.dock {
+    background-color: alpha(@window_bg_color, 0.5);
+    border-radius: 28px;
+    border: 1px @popover_bg_color solid;
+}
+
+.dockcontainer {
+    padding: 0.6em;
+}
+
+window.dock button {
+    background-color: transparent;
+    border-radius: 28px;
+    margin: 0.25em;
+    padding: 0.25em;
+}
+
+window.dock .workspacecontainer {
+    border: 1px @popover_bg_color solid;
+    background-color: @window_bg_color;
+    border-radius: 28px;
+    padding: 0 0.4em;
+    margin: 0 0.4em;
+}
+
+window.dock .workspacecontainer-active {
+    border: 1px @accent_bg_color solid;
+    background-color: @window_bg_color;
+    border-radius: 28px;
+    padding: 0 0.4em;
+    margin: 0 0.4em;
+}
