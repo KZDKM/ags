@@ -35,9 +35,12 @@ const UpdatePlaybackStatus = () => {
 // just a system badge like macOS
 function SystemIcon(): JSX.Element {
   return <button
-  css="padding: 0;"
+    css="padding: 0;"
+    onButtonPressEvent={() => {
+      execAsync("missioncenter")
+    }}
   >
-    <icon icon="linux"/>
+    <icon icon="linux" />
   </button>
 }
 
@@ -66,9 +69,9 @@ function AppBadge(): JSX.Element {
         if (client == null) return "桌面"
         const curAppInfo = GetAppInfo(client.get_class())
         return client.get_class() == "" ? "桌面" : curAppInfo?.get_name() ?? client.get_class()
-      })}  
+      })}
     />
-  </box> 
+  </box>
 }
 
 function WindowTitle(): JSX.Element {
@@ -101,7 +104,7 @@ function WindowGroup(): JSX.Element {
 
 function WorkspaceIndicator(): JSX.Element {
   const windowStatus: Variable<string> = Variable("")
-  hyprland.connect("event", () => {  
+  hyprland.connect("event", () => {
     if (hyprland.focusedClient == null) return
     for (const client of hyprland.get_clients()) {
       if (client.address == hyprland.focusedClient.address) {
@@ -116,13 +119,13 @@ function WorkspaceIndicator(): JSX.Element {
   const workspaceToRight = Variable(false)
   return <box
     className="workspaceindicator"
-  > 
+  >
     <box
       className="workspacepointer" // left pointer
       spacing={2}
       visible={workspaceToLeft()}
     >
-      <icon css="font-size: 10px" icon="go-previous"/>
+      <icon css="font-size: 10px" icon="go-previous" />
       <label
         className="preceedingws"
         label={bind(hyprland, "focusedWorkspace").as((focusedWorkspace) => {
@@ -139,7 +142,7 @@ function WorkspaceIndicator(): JSX.Element {
           if (preceedingWSCount == 0) workspaceToLeft.set(false)
           else workspaceToLeft.set(true)
           return (preceedingWSCount > 9 ? 9 : preceedingWSCount).toString() +
-                (preceedingWSCount > 9 ? "+" : "");
+            (preceedingWSCount > 9 ? "+" : "");
         })}
       />
     </box>
@@ -153,7 +156,7 @@ function WorkspaceIndicator(): JSX.Element {
         label={windowStatus()}
         visible={bind(hyprland, "focusedClient").as((client) => (client?.get_class() ?? "") != "")}
       />
-      <AppBadge/>
+      <AppBadge />
     </box>
 
     <box
@@ -180,7 +183,7 @@ function WorkspaceIndicator(): JSX.Element {
             (succeedingWSCount > 9 ? "+" : "");
         })}
       />
-      <icon css="font-size: 10px" icon="go-next"/>
+      <icon css="font-size: 10px" icon="go-next" />
     </box>
 
   </box>
@@ -196,7 +199,7 @@ function Mpris(): JSX.Element {
       }
     }}
   >
-    <icon icon="media-playback-start"/>
+    <icon icon="media-playback-start" />
   </button>
 }
 
@@ -221,9 +224,9 @@ function Bluetooth(): JSX.Element {
         />
       </button>
     })}
-    
+
   </box>
-  
+
 }
 
 function Network(): JSX.Element {
@@ -243,7 +246,7 @@ function Network(): JSX.Element {
 
   return <box>
     {bind(tray, "items").as((items) => {
-      const nmappletItem = items.find((i) => i.id == "nm-applet") 
+      const nmappletItem = items.find((i) => i.id == "nm-applet")
       const nmappletMenu = nmappletItem?.create_menu()
       return <button
         onClick={(self, event) => {
@@ -254,15 +257,15 @@ function Network(): JSX.Element {
         setup={() => execAsync("nm-applet")}
       >
         <stack
-          shown={bind(network,"primary").as((p) => (p == AstalNetwork.Primary.WIFI) ? "wifi" : "wired")}
+          shown={bind(network, "primary").as((p) => (p == AstalNetwork.Primary.WIFI) ? "wifi" : "wired")}
         >
-          <WifiIndicator/>
-          <WiredIndicator/>
+          <WifiIndicator />
+          <WiredIndicator />
         </stack>
       </button>
     })}
-    
-  </box> 
+
+  </box>
 }
 
 function Audio(): JSX.Element {
@@ -343,8 +346,8 @@ function MediaGroup(): JSX.Element {
       })
     }}
   >
-    <Mpris/>
-    <Audio/>
+    <Mpris />
+    <Audio />
   </box>
 }
 
@@ -353,7 +356,7 @@ function Settings(): JSX.Element {
     spacing={0}
     className="settings"
   >
-    <Bluetooth/>
+    <Bluetooth />
     <Network />
     <MediaGroup />
     <Battery />
@@ -373,12 +376,12 @@ function Tray(): JSX.Element {
         tooltipMarkup={bind(item, "tooltipMarkup")}
         onDestroy={() => menu?.destroy()}
         onClick={(self, event) => {
-            if (event.button == Astal.MouseButton.PRIMARY) {
-              item.activate(event.x, event.y)
-            } else if (event.button == Astal.MouseButton.SECONDARY) {
-              menu?.popup_at_widget(self, Gdk.Gravity.SOUTH, Gdk.Gravity.NORTH, null)
-            }
+          if (event.button == Astal.MouseButton.PRIMARY) {
+            item.activate(event.x, event.y)
+          } else if (event.button == Astal.MouseButton.SECONDARY) {
+            menu?.popup_at_widget(self, Gdk.Gravity.SOUTH, Gdk.Gravity.NORTH, null)
           }
+        }
         }
       >
         <icon
@@ -397,9 +400,14 @@ function Clock(): JSX.Element {
   />
 }
 
-function Notifications(): JSX.Element {
-  return <button css="margin: 0; padding:0">
-    <icon icon="list-ul"/>
+function Options(): JSX.Element {
+  return <button
+    css="margin: 0; padding:0"
+    onButtonPressEvent={() => {
+      App.toggle_window("quicksettings")
+    }}
+  >
+    <icon icon="list-ul" />
   </button>
 }
 
@@ -408,9 +416,9 @@ function LeftModules(): JSX.Element {
     spacing={8}
     halign={Gtk.Align.START}
   >
-    <SystemIcon/>
-    <WorkspaceIndicator/>        
-    <WindowTitle/>
+    <SystemIcon />
+    <WorkspaceIndicator />
+    <WindowTitle />
   </box>
 }
 
@@ -422,31 +430,31 @@ function RightModules(): JSX.Element {
     <Tray />
     <Settings />
     <Clock />
-    <Notifications />
+    <Options />
   </box>
 }
 
 export default function Bar(monitor: Gdk.Monitor) {
 
-    return <window
-        name={"bar-" + monitor}
-        className="bar"
-        namespace="bar"
-        layer={Astal.Layer.TOP}
-        margin={0 | 0}
-        gdkmonitor={monitor}
-        exclusivity={Astal.Exclusivity.EXCLUSIVE}
-        anchor={Astal.WindowAnchor.TOP
-            | Astal.WindowAnchor.LEFT
-            | Astal.WindowAnchor.RIGHT}
-        application={App}>
-        <centerbox
-            css="min-height: 28px; padding: 0 1em;"
-            vexpand={true}
-        >
-            <LeftModules />
-            <box css="min-width: 250px;"/>
-            <RightModules />
-        </centerbox>
-    </window>
+  return <window
+    name={"bar-" + monitor}
+    className="bar"
+    namespace="bar"
+    layer={Astal.Layer.TOP}
+    margin={0 | 0}
+    gdkmonitor={monitor}
+    exclusivity={Astal.Exclusivity.EXCLUSIVE}
+    anchor={Astal.WindowAnchor.TOP
+      | Astal.WindowAnchor.LEFT
+      | Astal.WindowAnchor.RIGHT}
+    application={App}>
+    <centerbox
+      css="min-height: 28px; padding: 0 1em;"
+      vexpand={true}
+    >
+      <LeftModules />
+      <box css="min-width: 250px;" />
+      <RightModules />
+    </centerbox>
+  </window>
 }

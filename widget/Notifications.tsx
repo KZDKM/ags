@@ -1,4 +1,4 @@
-import { Variable, bind, execAsync } from "astal"
+import { GLib, Variable, bind, execAsync } from "astal"
 import { App, Astal, Gtk, Gdk, Widget } from "astal/gtk3"
 import GObject, { register, property } from "astal/gobject"
 import { timeout } from "astal/time"
@@ -7,20 +7,48 @@ import AstalNotifd from "gi://AstalNotifd"
 
 const notification = AstalNotifd.get_default()
 
+const time = (time: number, format = "%H:%M") => GLib.DateTime
+    .new_from_unix_local(time)
+    .format(format)!
+
 function Notification(n: AstalNotifd.Notification) {
     return <eventbox
         onClick={(self, event) => {
             if (event.button == Astal.MouseButton.PRIMARY) {
-                n.dismiss()
+                //n.dismiss()
             }
         }}
     >
         <box
             className="notification"
             vertical={true}
+            spacing={4}
             setup={() => {
             }}
         >
+            <box className="notification-notification-header" spacing={4}>
+                {(n.appIcon || n.desktopEntry) && <icon
+                    className="app-icon"
+                    visible={Boolean(n.appIcon || n.desktopEntry)}
+                    icon={n.appIcon || n.desktopEntry}
+                />}
+                <label
+                    className="notification-app-name"
+                    halign={Gtk.Align.START}
+                    truncate
+                    label={n.appName || "Unknown"}
+                />
+                <label
+                    className="notification-time"
+                    hexpand
+                    halign={Gtk.Align.END}
+                    label={time(n.time)}
+                />
+                <button onClicked={() => n.dismiss()}>
+                    <icon icon="window-close-symbolic" />
+                </button>
+            </box>
+            <Gtk.Separator visible />
             <box>
                 <box
                     valign={Gtk.Align.START}

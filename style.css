@@ -159,8 +159,8 @@ window.bar image {
 
 .settings {
     border-radius: 10px;
-    border: 1px lighter(@popover_bg_color) solid;
-    background-color: @popover_bg_color;
+    border: 1px @popover_bg_color solid;
+    background-color: lighter(lighter(@view_bg_color));
     padding-left: 0.6em;
     padding-right: 0.8em;
     margin: 0.2em 0.2em;
@@ -207,11 +207,40 @@ window.notification-popups .notification {
     padding: 1em;
     margin: 0.5em;
     border: 1px solid @wm_borders_edge;
-    background-color: alpha(@window_bg_color, 0.5);
+    background-color: alpha(@window_bg_color, 0.5);    
+}
+
+.notification-header {
+    padding: .5rem;
+    color: alpha(@theme_fg_color, 0.5);    
+}
+
+window.notification-popups separator {
+    margin: 0 .4rem;
+    background-color: alpha(@theme_fg_color, .1);
+}
+.notification-app-icon {
+    margin: 0 .4rem;
+}
+
+.notification-app-name {
+    margin-right: .3rem;
+    font-weight: bold; 
+}
+
+.notification-time {
+    margin: 0 .4rem;
+}
+
+window.notification-popups button {
+    padding: .2rem;
+    min-width: 0;
+    min-height: 0;
 }
 
 window.notification-popups .notification.critical {
     border: 1px solid lightcoral;
+    
 }
 
 window.notification-popups .title {
@@ -234,6 +263,10 @@ window.notification-popups .body {
 
 .actions .action-button:last-child {
     margin-right: 0;
+}
+
+.notification-app-icon {
+
 }
 
 /* PLAYERS */
@@ -303,7 +336,7 @@ window.players {
 /* APP LAUCHER */
 
 .frame {
-    border:none;
+    border: none;
 }
 
 window.applauncher {
@@ -368,4 +401,32 @@ window.dock .workspacecontainer-active {
     border-radius: 28px;
     padding: 0 0.4em;
     margin: 0 0.4em;
+}
+
+/* QUICK SETTINGS */
+
+window.quicksettings {
+    background-color: alpha(@window_bg_color, 0.5);
+    border-radius: 24px;
+    border: 1px @popover_bg_color solid;
+}
+
+label.header {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+label.settings-entry-label {
+    font-size: 14px;
+}
+
+label.settings-entry-status {
+    font-size: 14px;
+    color: @insensitive_fg_color;
+}
+
+button.settings-entry {
+    border-radius: 16px;
+    padding: 8px 12px;
+    font-weight: normal;
 }
