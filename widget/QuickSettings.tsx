@@ -61,16 +61,6 @@ export default function QuickSettings(monitor: Gdk.Monitor) {
                 }}
             />
 
-            <box hexpand={true} spacing={4}>
-                <icon icon="display-brightness-symbolic" />
-                <label className="settings-entry-label" label="显示亮度" />
-                <label className="settings-entry-status" label="90%" ellipsize={Pango.EllipsizeMode.END} />
-            </box>
-            <slider
-                onDragged={() => {
-                }}
-            />
-
             <button className="settings-entry">
                 <box hexpand={true} spacing={4}>
                     <icon icon="network-wireless-symbolic" />

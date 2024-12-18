@@ -243,7 +243,6 @@ function Network(): JSX.Element {
     />
   </box>
 
-
   return <box>
     {bind(tray, "items").as((items) => {
       const nmappletItem = items.find((i) => i.id == "nm-applet")
@@ -308,13 +307,13 @@ function Battery(): JSX.Element {
   >
     <box
       className={bind(battery, "charging").as((charging) =>
-        (battery.percentage <= 15 && !charging) ? "battery-low" : "battery"
+        (battery.percentage * 100 <= 15 && !charging) ? "battery-low" : "battery"
       )}
       spacing={2}
     >
       <label
         css="font-size: 10px"
-        label={bind(battery, "percentage").as((percentage) => percentage + "%")}
+        label={bind(battery, "percentage").as((percentage) => percentage * 100 + "%")}
       />
       <icon
         iconSize={12}
