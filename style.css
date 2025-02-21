@@ -1,5 +1,5 @@
 * {
-    font-family: "Inter Regular";
+    font-family: "Inter Regular", "Source Han Sans CN";
 }
 
 /* BAR */
@@ -207,25 +207,26 @@ window.notification-popups .notification {
     padding: 1em;
     margin: 0.5em;
     border: 1px solid @wm_borders_edge;
-    background-color: alpha(@window_bg_color, 0.5);    
+    background-color: alpha(@window_bg_color, 0.5);
 }
 
 .notification-header {
     padding: .5rem;
-    color: alpha(@theme_fg_color, 0.5);    
+    color: alpha(@theme_fg_color, 0.5);
 }
 
 window.notification-popups separator {
     margin: 0 .4rem;
     background-color: alpha(@theme_fg_color, .1);
 }
+
 .notification-app-icon {
     margin: 0 .4rem;
 }
 
 .notification-app-name {
     margin-right: .3rem;
-    font-weight: bold; 
+    font-weight: bold;
 }
 
 .notification-time {
@@ -240,7 +241,7 @@ window.notification-popups button {
 
 window.notification-popups .notification.critical {
     border: 1px solid lightcoral;
-    
+
 }
 
 window.notification-popups .title {
@@ -265,9 +266,7 @@ window.notification-popups .body {
     margin-right: 0;
 }
 
-.notification-app-icon {
-
-}
+.notification-app-icon {}
 
 /* PLAYERS */
 
@@ -418,15 +417,34 @@ label.header {
 
 label.settings-entry-label {
     font-size: 14px;
+    font-weight: bold;
 }
 
 label.settings-entry-status {
-    font-size: 14px;
-    color: @insensitive_fg_color;
+    font-size: 12px;
 }
 
 button.settings-entry {
+    transition-duration: 500ms;
     border-radius: 16px;
+    border: 1px @popover_bg_color solid;
     padding: 8px 12px;
     font-weight: normal;
+}
+
+button.settings-entry-active {
+    transition-duration: 500ms;
+    border-radius: 16px;
+    border: 1px @accent_bg_color solid;
+    background-color: @accent_bg_color;
+    padding: 8px 12px;
+    font-weight: normal;
+}
+
+window.quicksettings separator {
+    background-color: alpha(@theme_fg_color, 0.5);
+}
+
+window.quicksettings GtkComboBox box {
+    padding: 0;
 }

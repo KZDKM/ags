@@ -204,17 +204,18 @@ function Mpris(): JSX.Element {
 }
 
 function Bluetooth(): JSX.Element {
+  execAsync("blueman-applet")
   return <box>
     {bind(tray, "items").as((items) => {
       const bluemanItem = items.find((i) => i.id == "blueman")
-      const bluemanMenu = bluemanItem?.create_menu()
-      return <button
-        onClick={(self, event) => {
-          if (event.button == Astal.MouseButton.PRIMARY) {
-            bluemanMenu?.popup_at_widget(self, Gdk.Gravity.SOUTH, Gdk.Gravity.NORTH, null)
-          }
-        }}
-        setup={() => execAsync("blueman-applet")}
+      if (bluemanItem === undefined) {
+        return <box/>
+      }
+      return <menubutton
+        tooltipMarkup={bind(bluemanItem, "tooltipMarkup")}
+        usePopover={false}
+        actionGroup={bind(bluemanItem, "actionGroup").as(ag => ["dbusmenu", ag])}
+        menuModel={bind(bluemanItem, "menuModel")}
       >
         <icon
           iconSize={12}
@@ -222,9 +223,8 @@ function Bluetooth(): JSX.Element {
             `bluetooth-${on ? "active" : "disabled"}-symbolic`)
           }
         />
-      </button>
+      </menubutton>
     })}
-
   </box>
 
 }
@@ -245,14 +245,15 @@ function Network(): JSX.Element {
 
   return <box>
     {bind(tray, "items").as((items) => {
-      const nmappletItem = items.find((i) => i.id == "nm-applet")
-      const nmappletMenu = nmappletItem?.create_menu()
-      return <button
-        onClick={(self, event) => {
-          if (event.button == Astal.MouseButton.PRIMARY) {
-            nmappletMenu?.popup_at_widget(self, Gdk.Gravity.SOUTH, Gdk.Gravity.NORTH, null)
-          }
-        }}
+      const nmappletItem = items.find((i) => i.id == "nm-applet")!
+      if (nmappletItem === undefined) {
+        return <box/>
+      }
+      return <menubutton
+        tooltipMarkup={bind(nmappletItem, "tooltipMarkup")}
+        usePopover={false}
+        actionGroup={bind(nmappletItem, "actionGroup").as(ag => ["dbusmenu", ag])}
+        menuModel={bind(nmappletItem, "menuModel")}
         setup={() => execAsync("nm-applet")}
       >
         <stack
@@ -261,7 +262,7 @@ function Network(): JSX.Element {
           <WifiIndicator />
           <WiredIndicator />
         </stack>
-      </button>
+      </menubutton>
     })}
 
   </box>
@@ -370,23 +371,16 @@ function Tray(): JSX.Element {
     {bind(tray, "items").as(items => items.reverse().filter((i) => i.id != "nm-applet" && i.id != "blueman").map(item => {
       if (item.iconThemePath)
         App.add_icons(item.iconThemePath)
-      const menu = item.create_menu()
-      return <button
+      return <menubutton
         tooltipMarkup={bind(item, "tooltipMarkup")}
-        onDestroy={() => menu?.destroy()}
-        onClick={(self, event) => {
-          if (event.button == Astal.MouseButton.PRIMARY) {
-            item.activate(event.x, event.y)
-          } else if (event.button == Astal.MouseButton.SECONDARY) {
-            menu?.popup_at_widget(self, Gdk.Gravity.SOUTH, Gdk.Gravity.NORTH, null)
-          }
-        }
-        }
+        usePopover={false}
+        actionGroup={bind(item, "actionGroup").as(ag => ["dbusmenu", ag])}
+        menuModel={bind(item,"menuModel")}
       >
         <icon
           gIcon={bind(item, "gicon")}
         />
-      </button>
+      </menubutton>
     }))}
   </box>
 }
