@@ -2,6 +2,7 @@ import { Variable, bind, execAsync } from "astal";
 import { App, Astal, Gtk, Gdk } from "astal/gtk3";
 
 import AstalApps from "gi://AstalApps";
+import { dockApp } from "../utils/Config";
 
 const apps = new AstalApps.Apps({
   includeEntry: true,
@@ -14,7 +15,6 @@ const AppEntry = (app: AstalApps.Application) => (
     onKeyPressEvent={(self, event) => {
       if (event.get_keyval()[1] == Gdk.KEY_Return) {
         App.toggle_window("applauncher");
-        //app.launch()
         execAsync([
           "hyprctl",
           "dispatch",
@@ -25,17 +25,21 @@ const AppEntry = (app: AstalApps.Application) => (
         app.frequency += 1;
       }
     }}
-    onClick={() => {
-      App.toggle_window("applauncher");
-      //app.launch()
-      execAsync([
-        "hyprctl",
-        "dispatch",
-        "exec",
-        "uwsm app --",
-        app.get_executable().split("%")[0],
-      ]);
-      app.frequency += 1;
+    onClick={(button, event) => {
+      if (event.button == Astal.MouseButton.PRIMARY) {
+        App.toggle_window("applauncher");
+        //app.launch()
+        execAsync([
+          "hyprctl",
+          "dispatch",
+          "exec",
+          "uwsm app --",
+          app.get_executable().split("%")[0],
+        ]);
+        app.frequency += 1;
+      } else {
+        dockApp(app.get_entry());
+      }
     }}
   >
     <box spacing={8}>
