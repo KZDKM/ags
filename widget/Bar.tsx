@@ -1,4 +1,4 @@
-import { Variable, bind, execAsync } from "astal";
+import { Variable, bind, execAsync, exec } from "astal";
 import { App, Astal, Gtk, Gdk } from "astal/gtk3";
 
 import AstalHyprland from "gi://AstalHyprland";
@@ -40,7 +40,16 @@ function SystemIcon(): JSX.Element {
         execAsync("missioncenter");
       }}
     >
-      <icon icon="linux" />
+      <icon
+        setup={(self) => {
+          const uname = exec("uname -a");
+          if (uname.includes("asahi")) {
+            self.icon = "asahilinux";
+          }
+        }}
+        icon="linux-symbolic"
+        css="color: white; font-size: 14px;"
+      />
     </button>
   );
 }
@@ -81,6 +90,7 @@ function WindowTitle(): JSX.Element {
   return (
     <label
       className="windowtitle"
+      css="color: white"
       truncate={true}
       setup={(self) => {
         hyprland.connect("event", (hyprland, event, args) => {
@@ -128,7 +138,7 @@ function WorkspaceIndicator(): JSX.Element {
         spacing={2}
         visible={workspaceToLeft()}
       >
-        <icon css="font-size: 10px" icon="go-previous" />
+        <icon css="font-size: 10px" icon="go-previous-symbolic" />
         <label
           className="preceedingws"
           label={bind(hyprland, "focusedWorkspace").as((focusedWorkspace) => {
@@ -190,7 +200,7 @@ function WorkspaceIndicator(): JSX.Element {
             );
           })}
         />
-        <icon css="font-size: 10px" icon="go-next" />
+        <icon css="font-size: 10px;" icon="go-next-symbolic" />
       </box>
     </box>
   );
@@ -248,15 +258,28 @@ function Bluetooth(): JSX.Element {
 function Network(): JSX.Element {
   const WifiIndicator = () => (
     <box name="wifi">
-      <icon iconSize={12} icon={bind(network.wifi, "iconName")} />
+      <icon
+        iconSize={12}
+        icon={bind(network.wifi, "iconName").as((name) => {
+          return name != null ? name : "network-offline-symbolic";
+        })}
+      />
     </box>
   );
   const WiredIndicator = () => (
     <box name="wired">
-      <icon iconSize={12} icon={bind(network.wired, "iconName")} />
+      <icon
+        iconSize={12}
+        icon={
+          network.wired != null
+            ? bind(network.wired, "iconName")
+            : "network-offline-symbolic"
+        }
+      />
     </box>
   );
 
+  execAsync("nm-applet");
   return (
     <box>
       {bind(tray, "items").as((items) => {
@@ -273,12 +296,13 @@ function Network(): JSX.Element {
               ag,
             ])}
             menuModel={bind(nmappletItem, "menuModel")}
-            setup={() => execAsync("nm-applet")}
           >
             <stack
               shown={bind(network, "primary").as((p) =>
                 p == AstalNetwork.Primary.WIFI ? "wifi" : "wired",
               )}
+              hexpand={true}
+              halign={Gtk.Align.CENTER}
             >
               <WifiIndicator />
               <WiredIndicator />
@@ -318,7 +342,7 @@ function Audio(): JSX.Element {
           icon={bind(wp?.audio.defaultSpeaker!, "volumeIcon")}
         />
         <label
-          css="font-size: 9px"
+          css="font-size: 10px"
           label={bind(wp?.audio.defaultSpeaker!, "volume").as(
             (vol) => Math.round(vol * 99) + "%",
           )}
@@ -332,20 +356,21 @@ function Battery(): JSX.Element {
   return (
     <box className="battery-container" visible={bind(battery, "isPresent")}>
       <box
+        spacing={4}
+        css="margin:0;padding:0"
         className={bind(battery, "charging").as((charging) =>
           battery.percentage * 100 <= 15 && !charging
             ? "battery-low"
             : "battery",
         )}
-        spacing={2}
       >
+        <icon iconSize={12} icon={bind(battery, "iconName")} />
         <label
           css="font-size: 10px"
           label={bind(battery, "percentage").as(
-            (percentage) => percentage * 100 + "%",
+            (percentage) => Math.round(percentage * 100) + "%",
           )}
         />
-        <icon iconSize={12} icon={bind(battery, "iconName")} />
       </box>
     </box>
   );
@@ -387,6 +412,7 @@ function Settings(): JSX.Element {
     <box spacing={0} className="settings">
       <Bluetooth />
       <Network />
+      <ThemeToggle />
       <MediaGroup />
       <Battery />
     </box>
@@ -412,7 +438,7 @@ function Tray(): JSX.Element {
                 ])}
                 menuModel={bind(item, "menuModel")}
               >
-                <icon gIcon={bind(item, "gicon")} />
+                <icon css="color: white" gIcon={bind(item, "gicon")} />
               </menubutton>
             );
           }),
@@ -422,18 +448,46 @@ function Tray(): JSX.Element {
 }
 
 function Clock(): JSX.Element {
-  return <label className="clock" yalign={0.5} label={time()} />;
+  return (
+    <label css="color: white" className="clock" yalign={0.5} label={time()} />
+  );
 }
 
 function Options(): JSX.Element {
   return (
     <button
-      css="margin: 0; padding:0"
+      css="margin: 0; padding:0;"
       onButtonPressEvent={() => {
         App.toggle_window("quicksettings");
       }}
     >
-      <icon icon="list-ul" />
+      <icon css="color: white" icon="list-ul-symbolic" />
+    </button>
+  );
+}
+
+function ThemeToggle(): JSX.Element {
+  const toggleTheme = () => {
+    const output = exec(
+      "gsettings get org.gnome.desktop.interface color-scheme",
+    ).trim();
+    if (output.includes("prefer-dark")) {
+      execAsync(
+        "gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'",
+      );
+      execAsync("gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3");
+    } else {
+      execAsync(
+        "gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'",
+      );
+      execAsync(
+        "gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3-dark",
+      );
+    }
+  };
+  return (
+    <button onButtonPressEvent={toggleTheme}>
+      <icon icon="display-brightness-symbolic" />
     </button>
   );
 }
@@ -474,13 +528,20 @@ export default function Bar(monitor: Gdk.Monitor) {
         Astal.WindowAnchor.LEFT |
         Astal.WindowAnchor.RIGHT
       }
+      heightRequest={38}
       application={App}
     >
-      <centerbox css="min-height: 28px; padding: 0 1em;" vexpand={true}>
-        <LeftModules />
-        <box css="min-width: 250px;" />
-        <RightModules />
-      </centerbox>
+      <box vexpand={false} valign={Gtk.Align.CENTER}>
+        <centerbox
+          css="min-height: 30px; padding: 0 1em;"
+          vexpand={false}
+          hexpand={true}
+        >
+          <LeftModules />
+          <box css="min-width: 250px;" />
+          <RightModules />
+        </centerbox>
+      </box>
     </window>
   );
 }

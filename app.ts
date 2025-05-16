@@ -27,7 +27,7 @@ App.start({
 
     const primaryMonitor = () => {
       for (const monitor of App.get_monitors()) {
-        if (monitor.get_model() == "Q27G3XMN") {
+        if (monitor.get_model() == "") {
           return monitor;
         }
       }

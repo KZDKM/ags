@@ -22,7 +22,7 @@ export default function Wallpaper(monitor: Gdk.Monitor) {
         vexpand={true}
         hexpand={true}
         css={
-          "background-image: url('/home/kzdkm/图片/earth.jpg'); background-size:cover"
+          "background-image: url('/home/kzdkm/图片/838502.jpg'); background-size:cover"
         }
       ></box>
     </window>

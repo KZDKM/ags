@@ -1,14 +1,19 @@
 * {
     font-family: "Inter Regular", "Source Han Sans CN";
+    color: @window_fg_color;
 }
+
+@define-color lighter_bg_color mix(@window_bg_color, @window_fg_color, 0.1);
+@define-color border_color mix(@window_bg_color, @window_fg_color, 0.2);
 
 /* BAR */
 
 window.bar {
-    background-color: alpha(@window_bg_color, 0.1);
+    /*background-color: alpha(@window_bg_color, 0.1);*/
+    background-color: black;
     /*border-radius: 0 0 8px 8px;*/
     font-size: 12px;
-    /*border-bottom: 1px alpha(@popover_bg_color, 0.5) solid;*/
+    /*border-bottom: 1px alpha(@border_color, 0.5) solid;*/
 }
 
 window.bar button {
@@ -20,7 +25,7 @@ window.bar button {
 }
 
 window.bar button:hover {
-    background-color: alpha(lighter(@popover_bg_color), 0.5);
+    background-color: alpha(@border_color, 0.5);
 }
 
 .sysicon {
@@ -39,7 +44,7 @@ window.bar button:hover {
 }
 
 .workspaceindicator {
-    background-color: lighter(lighter(@window_bg_color));
+    background-color: @lighter_bg_color;
     /*box-shadow: 0 -0.2em 0.4em 0.1em darker(darker(@window_bg_color)) inset;*/
     border-radius: 10px;
     margin: 0.2em 0.2em;
@@ -53,7 +58,7 @@ window.bar button:hover {
 }
 
 .windowindicator {
-    border-right: 1px @popover_bg_color solid;
+    border-right: 1px @border_color solid;
     padding: 0 0.6em;
 }
 
@@ -68,7 +73,7 @@ window.bar button:hover {
 
 .workspacecenter {
     border-radius: 10px;
-    border: 1px @popover_bg_color solid;
+    border: 1px @border_color solid;
     background-color: @window_bg_color;
     /*box-shadow: 0 -0.2em 0.4em 0.1em lighter(@window_bg_color) inset;*/
     padding: 0 0.6em;
@@ -83,7 +88,7 @@ window.bar button:hover {
 }
 
 .appbadge {
-    /*border-right: 1px @popover_bg_color solid;
+    /*border-right: 1px @border_color solid;
     border-radius: 10px;*/
     margin: 0 0.6em;
 }
@@ -106,7 +111,7 @@ window.bar image {
 
 .windowgroup {
     /*background-color: darker(@window_bg_color);
-    border: 1px @popover_bg_color solid;
+    border: 1px @border_color solid;
     border-radius: 10px;*/
     margin: 0.4em;
     padding: 0;
@@ -152,15 +157,15 @@ window.bar image {
 .media-active {
     border-radius: 10px;
     padding: 0 0.4em;
-    margin-left: 0.4em;
+    margin: 0 0.4em;
     background-color: @accent_bg_color;
     transition-duration: 500ms;
 }
 
 .settings {
     border-radius: 10px;
-    border: 1px @popover_bg_color solid;
-    background-color: lighter(lighter(@view_bg_color));
+    border: 1px @border_color solid;
+    background-color: @lighter_bg_color;
     padding-left: 0.6em;
     padding-right: 0.8em;
     margin: 0.2em 0.2em;
@@ -211,37 +216,36 @@ window.notification-popups .notification {
 }
 
 .notification-header {
-    padding: .5rem;
+    padding: 0.5rem;
     color: alpha(@theme_fg_color, 0.5);
 }
 
 window.notification-popups separator {
-    margin: 0 .4rem;
-    background-color: alpha(@theme_fg_color, .1);
+    margin: 0 0.4rem;
+    background-color: alpha(@theme_fg_color, 0.1);
 }
 
 .notification-app-icon {
-    margin: 0 .4rem;
+    margin: 0 0.4rem;
 }
 
 .notification-app-name {
-    margin-right: .3rem;
+    margin-right: 0.3rem;
     font-weight: bold;
 }
 
 .notification-time {
-    margin: 0 .4rem;
+    margin: 0 0.4rem;
 }
 
 window.notification-popups button {
-    padding: .2rem;
+    padding: 0.2rem;
     min-width: 0;
     min-height: 0;
 }
 
 window.notification-popups .notification.critical {
     border: 1px solid lightcoral;
-
 }
 
 window.notification-popups .title {
@@ -266,7 +270,8 @@ window.notification-popups .body {
     margin-right: 0;
 }
 
-.notification-app-icon {}
+.notification-app-icon {
+}
 
 /* PLAYERS */
 
@@ -340,7 +345,7 @@ window.players {
 
 window.applauncher {
     background-color: alpha(@window_bg_color, 0.5);
-    border: 1px @popover_bg_color solid;
+    border: 1px @border_color solid;
     border-radius: 16px;
 }
 
@@ -372,7 +377,7 @@ window.applauncher .description {
 window.dock {
     background-color: alpha(@window_bg_color, 0.5);
     border-radius: 28px;
-    border: 1px @popover_bg_color solid;
+    border: 1px @border_color solid;
 }
 
 .dockcontainer {
@@ -387,7 +392,7 @@ window.dock button {
 }
 
 window.dock .workspacecontainer {
-    border: 1px @popover_bg_color solid;
+    border: 1px @border_color solid;
     background-color: @window_bg_color;
     border-radius: 28px;
     padding: 0 0.4em;
@@ -406,8 +411,9 @@ window.dock .workspacecontainer-active {
 
 window.quicksettings {
     background-color: alpha(@window_bg_color, 0.5);
+    color: @window_fg_color;
     border-radius: 24px;
-    border: 1px @popover_bg_color solid;
+    border: 1px @border_color solid;
 }
 
 label.header {
@@ -427,7 +433,7 @@ label.settings-entry-status {
 button.settings-entry {
     transition-duration: 500ms;
     border-radius: 16px;
-    border: 1px @popover_bg_color solid;
+    border: 1px @border_color solid;
     padding: 8px 12px;
     font-weight: normal;
 }

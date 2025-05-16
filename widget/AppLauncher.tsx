@@ -4,10 +4,7 @@ import { App, Astal, Gtk, Gdk } from "astal/gtk3";
 import AstalApps from "gi://AstalApps";
 import { dockApp } from "../utils/Config";
 
-const apps = new AstalApps.Apps({
-  includeEntry: true,
-  includeExecutable: true,
-});
+const apps = new AstalApps.Apps({});
 
 const AppEntry = (app: AstalApps.Application) => (
   <button
@@ -90,9 +87,17 @@ export default function AppLauncher(monitor: Gdk.Monitor) {
       gdkmonitor={monitor}
       application={App}
     >
-      <box vertical={true} css="margin: 24px">
-        <box>
-          <icon icon="system-search-symbolic" />
+      <box vertical={true}>
+        <box
+          css={bind(entryNotEmpty).as((not_empty) => {
+            if (not_empty) {
+              return "border-radius: 16px 16px 0 0; padding: 12px; border: 1px @border_color solid; background-color: @window_bg_color";
+            } else {
+              return "border-radius: 16px 16px 0 0; padding: 13px; border: 1px transparent solid";
+            }
+          })}
+        >
+          <icon css="margin-left: 4px;" icon="system-search-symbolic" />
           <entry
             hexpand={true}
             css="min-width: 500px"
@@ -116,7 +121,7 @@ export default function AppLauncher(monitor: Gdk.Monitor) {
               appList.set(apps.fuzzy_query(entry.get_text()));
               entryList.drop();
               entryList.set(appList.get().map(AppEntry));
-              entryNotEmpty.set(entry.text != "");
+              entryNotEmpty.set(entry.text.trim() != "");
             }}
             setup={(self) => {
               App.connect("window-toggled", (_, window) => {
@@ -142,7 +147,7 @@ export default function AppLauncher(monitor: Gdk.Monitor) {
           )}
           visible={entryNotEmpty()}
         >
-          <box vertical={true} spacing={12}>
+          <box css="padding: 8px" vertical={true} spacing={12}>
             {entryList()}
           </box>
         </scrollable>

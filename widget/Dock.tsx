@@ -21,10 +21,7 @@ import AstalHyprland from "gi://AstalHyprland";
 import AstalApps from "gi://AstalApps";
 const hyprland = AstalHyprland.get_default();
 
-const apps = new AstalApps.Apps({
-  includeEntry: true,
-  includeExecutable: true,
-});
+const apps = new AstalApps.Apps({ });
 
 function PinnedApps() {
   // widget for a pinned app
