@@ -1,4 +1,4 @@
-import { Variable, bind, execAsync } from "astal";
+import { Variable, bind, execAsync, exec } from "astal";
 import { App, Astal, Gtk, Gdk } from "astal/gtk3";
 import {
   readFile,
@@ -8,7 +8,7 @@ import {
   monitorFile,
 } from "astal/file";
 
-const configPath = "../ags-config/config.json";
+const configPath = "ags-config.json";
 
 export type Config = {
   // name of main monitor
@@ -32,6 +32,7 @@ let config: Config = {
 // initialize config monitor, should only be called on app initialization
 export function configInit() {
   // create default config if it does not exist
+  exec("touch " + configPath);
   if (readFile(configPath) == "") {
     // TODO
     const initConfig =

@@ -26,6 +26,7 @@
         ags.packages.${system}.network
         ags.packages.${system}.notifd
         ags.packages.${system}.wireplumber
+        pkgs.font-awesome
       ];
     };
   };

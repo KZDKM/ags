@@ -27,7 +27,7 @@ App.start({
 
     const primaryMonitor = () => {
       for (const monitor of App.get_monitors()) {
-        if (monitor.get_model() == "") {
+        if (monitor.get_model() == "VX2719-2K-PRO") {
           return monitor;
         }
       }
