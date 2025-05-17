@@ -23,7 +23,7 @@ App.start({
     // initialize config system
     configInit();
 
-    App.add_icons("./assets");
+    App.add_icons("./icons");
 
     const primaryMonitor = () => {
       for (const monitor of App.get_monitors()) {

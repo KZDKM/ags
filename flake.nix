@@ -8,7 +8,7 @@
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
   in {
-    packages.${system}.default = ags.lib.bundle { 
+    packages.${system}.default = ags.lib.bundle {
       inherit pkgs;
       src = ./.;
       name = "ags-shell";
@@ -26,7 +26,6 @@
         ags.packages.${system}.network
         ags.packages.${system}.notifd
         ags.packages.${system}.wireplumber
-        pkgs.font-awesome
       ];
     };
   };
